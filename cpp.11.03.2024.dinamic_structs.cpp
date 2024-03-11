@@ -84,7 +84,6 @@ public:
             return;
         }
 
-        Node* tmp_node = head;
         head = tmp_node->next;
         delete tmp_node;
     }
@@ -154,7 +153,6 @@ public:
             return;
         }
 
-        Nodee* tmp_node = head;
         head = tmp_node->next;
         head->prev = NULL;
         delete tmp_node;
@@ -173,6 +171,28 @@ public:
         tail->next = NULL;
         delete tmp_node;
     }
+
+    void insert(int _data_prev, int data) {
+        Nodee* tmp_node = head;
+        while (true) {
+            if (tmp_node->data == _data_prev) {
+                cout << tmp_node->next->data << ' ';
+                tmp_node = tmp_node->next;
+            }
+            else { break; }
+        }
+    }
+
+    void show_all() {
+        Nodee* tmp_node = head;
+        while (true) {
+            if (tmp_node != NULL) {
+                cout << tmp_node->data << ' ';
+                tmp_node = tmp_node->next;
+            }
+            else { break; }
+        }
+    }
 };
 
 void osn0() {
@@ -190,9 +210,19 @@ void osn0() {
     list.show_all();
 }
 
+void osn1() {
+    TwoLinkedList list;
+
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+
+    list.show_all();
+}
+
 int main(){
     setlocale(LC_ALL, "ru");
     srand(time(0));
-    osn0();
+    osn1();
     return 0;
 }
