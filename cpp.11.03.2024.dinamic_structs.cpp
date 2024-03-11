@@ -65,6 +65,16 @@ public:
     void show_tail() {
         cout << "Tail: " << tail->data << endl;
     }
+    void show_all() {
+        Node* tmp_node = head;
+        while (true){
+            if (tmp_node != NULL) {
+                cout << tmp_node->data << ' '; 
+                tmp_node = head->next;
+            }
+            else { break; }
+        }
+    }
 };
 
 void osn0() {
@@ -78,6 +88,8 @@ void osn0() {
 
     list.show_head();
     list.show_tail();
+
+    list.show_all();
 }
 
 int main(){
