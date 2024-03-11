@@ -42,21 +42,21 @@ public:
     }
 
     void push_front(int data) {
-        Node* node = new Node(data);
-        node->next = head;
-        head = node;
-        if (tail == NULL) tail = node;
+        Node* tmp_node = new Node(data);
+        tmp_node->next = head;
+        head = tmp_node;
+        if (tail == NULL) tail = tmp_node;
     }
 
     void push_back(int data) {
-        Node* node = new Node(data);
+        Node* tmp_node = new Node(data);
         if (head == NULL) {
-            head = node;
+            head = tmp_node;
         }
         if (tail != NULL) {
-            tail->next = node;
+            tail->next = tmp_node;
         }
-        tail = node;
+        tail = tmp_node;
     }
 
     void show_head() {
@@ -70,10 +70,108 @@ public:
         while (true){
             if (tmp_node != NULL) {
                 cout << tmp_node->data << ' '; 
-                tmp_node = head->next;
+                tmp_node = tmp_node->next;
             }
             else { break; }
         }
+    }
+    void pop_front() {
+        Node* tmp_node = head;
+        if (head == NULL) return;
+        if (head == tail) {
+            delete tail;
+            head = tail = NULL;
+            return;
+        }
+
+        Node* tmp_node = head;
+        head = tmp_node->next;
+        delete tmp_node;
+    }
+
+    void pop_back() {
+        if (tail == NULL) return;
+        if (tail == head) {
+            delete head;
+            tail = head = NULL;
+            return;
+        }
+
+        Node* tmp_node = tail;
+        //не доделан
+    }
+};
+
+class Nodee {
+public:
+    int data;
+    Nodee* next;
+    Nodee* prev;
+
+    Nodee(int _data) : data(_data) {}
+};
+
+class TwoLinkedList {
+public:
+    Nodee* head, * tail;
+
+    TwoLinkedList() {
+        this->head = NULL;
+        this->tail = NULL;
+    }
+
+    void push_front(int data) {
+        Nodee* tmp_node = new Nodee(data);
+        tmp_node = head;
+        head = tmp_node->next;
+        tmp_node = NULL;
+        if (tail == NULL) tail = tmp_node;
+    }
+
+    void push_back(int data) {
+        Nodee* tmp_node = new Nodee(data);
+        tmp_node->prev = tail;
+        tail = tmp_node;
+        if (head == NULL) head = tmp_node;
+    }
+
+    void show_head() {
+        cout << "Head: " << head->data << endl;
+        cout << "Head next: " << head->next->data << endl;
+    }
+
+    void show_tail() {
+        cout << "Tail: " << tail->data << endl;
+        cout << "Tail prev: " << tail->prev->data << endl;
+    }
+
+    void pop_front() {
+        Nodee* tmp_node = head;
+        if (head == NULL) return;
+        if (head == tail) {
+            delete tail;
+            head = tail = NULL;
+            return;
+        }
+
+        Nodee* tmp_node = head;
+        head = tmp_node->next;
+        head->prev = NULL;
+        delete tmp_node;
+    }
+
+    void pop_back() {
+        if (tail == NULL) return;
+        if (tail == head) {
+            delete head;
+            tail = head = NULL;
+            return;
+        }
+
+        Nodee* tmp_node = tail;
+        tail = tmp_node->prev;
+        tail->next = NULL;
+        delete tmp_node;
     }
 };
 
