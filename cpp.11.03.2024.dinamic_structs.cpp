@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 using namespace std;
 //список, стек, кольцевой буфер, бинарное дерево
@@ -24,6 +24,8 @@ class Node {
 public:
     int data;
     Node* next;
+
+    Node(int _data): data(_data) {}
 };
 
 class OneLinkedList {
@@ -48,18 +50,34 @@ public:
 
     void push_back(int data) {
         Node* node = new Node(data);
-        if (head == 0) {
+        if (head == NULL) {
             head = node;
         }
-        if (tail != 0) {
+        if (tail != NULL) {
             tail->next = node;
-            tail = node;
         }
+        tail = node;
+    }
+
+    void show_head() {
+        cout << "Head: " << head->data << endl;
+    }
+    void show_tail() {
+        cout << "Tail: " << tail->data << endl;
     }
 };
 
 void osn0() {
-    
+    OneLinkedList list;
+
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.push_back(4);
+    list.push_back(5);
+
+    list.show_head();
+    list.show_tail();
 }
 
 int main(){
