@@ -121,22 +121,24 @@ public:
 
     void push_front(int data) {
         Nodee* tmp_node = new Nodee(data);
-        tmp_node = head;
-        head = tmp_node->next;
-        tmp_node = NULL;
-        if (tail == NULL) tail = tmp_node;
+        
+        tmp_node->next = head;
+        head = tmp_node;
     }
 
     void push_back(int data) {
         Nodee* tmp_node = new Nodee(data);
-        tmp_node->prev = tail;
-        tail = tmp_node;
+        tail->next = tmp_node;
         if (head == NULL) head = tmp_node;
+        delete tmp_node;
     }
 
     void show_head() {
         cout << "Head: " << head->data << endl;
-        cout << "Head next: " << head->next->data << endl;
+
+        Nodee* tmp_node = head->next;
+        tmp_node = tmp_node->prev;
+        cout << "Prev from next: " << tmp_node->data << endl;
     }
 
     void show_tail() {
@@ -213,9 +215,11 @@ void osn0() {
 void osn1() {
     TwoLinkedList list;
 
-    list.push_back(1);
-    list.push_back(2);
-    list.push_back(3);
+    list.push_front(1);
+    list.push_front(2);
+    list.push_front(3);
+
+    list.show_head();
 
     list.show_all();
 }
