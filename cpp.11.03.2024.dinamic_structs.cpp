@@ -1,25 +1,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-//список, стек, кольцевой буфер, бинарное дерево
-/*
-взаимодействия с дин. структурами
-1)добавление в конец или начало
-2) добавление в середину
-3) удаление из конца/начала
-4) поиск элемента
-O(1) - операция проходящее за "константное время", происходит если вы знаете где находится элемент и что с ним сделать
-О(N) - элемент находится за столько операций, сколько элементов в структуре (n - колличество элеменетов)
-O(logn) - колво операций будет расти с колличеством элементов, но далеко не так сильно
-O(n^2) - вложеный цикл
-O(n!) - перебор пароля, колво операций сильно увеличивается по сравлению с колличеством элементов*/
-
-//список(очередь) - самая быстрая вставка в конец/начало или удаление из конца/начала. очередь можно сравнить с трубой
-//каждый элемент в очереде знает кто стоит за ним и перед ним(в двунаправленной очереди. в однонаправленной видим только впередистоящего)
-
-/*Работа с списком состоит из:
-1) описания отдельной Node
-2) описать операции*/
 class Node {
 public:
     int data;
@@ -122,15 +103,28 @@ public:
     void push_front(int data) {
         Nodee* tmp_node = new Nodee(data);
         
-        tmp_node->next = head;
+        if (head != NULL) {
+            tmp_node->next = head;
+            head->prev = tmp_node;
+        }
+        else {
+            tail = tmp_node;
+        }
         head = tmp_node;
     }
 
     void push_back(int data) {
         Nodee* tmp_node = new Nodee(data);
-        tail->next = tmp_node;
-        if (head == NULL) head = tmp_node;
-        delete tmp_node;
+
+        if (tail != NULL) {
+            tmp_node->prev = tail;
+            tail->next = tmp_node;
+        }
+        else {
+            head = tmp_node;
+        }
+
+        tail = tmp_node;
     }
 
     void show_head() {
@@ -138,12 +132,15 @@ public:
 
         Nodee* tmp_node = head->next;
         tmp_node = tmp_node->prev;
-        cout << "Prev from next: " << tmp_node->data << endl;
+        cout << "(head)Prev from next: " << tmp_node->data << endl;
     }
 
     void show_tail() {
         cout << "Tail: " << tail->data << endl;
-        cout << "Tail prev: " << tail->prev->data << endl;
+
+        Nodee* tmp_node = tail->prev;
+        tmp_node = tmp_node->next;
+        cout << "Tail prev: " << tmp_node->data << endl;
     }
 
     void pop_front() {
@@ -218,8 +215,13 @@ void osn1() {
     list.push_front(1);
     list.push_front(2);
     list.push_front(3);
+    list.push_back(10);
+    list.push_back(11);
+    list.push_back(12);
+    list.push_back(13);
 
     list.show_head();
+    list.show_tail();
 
     list.show_all();
 }
