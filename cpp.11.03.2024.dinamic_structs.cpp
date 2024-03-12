@@ -125,22 +125,17 @@ public:
         }
 
         tail = tmp_node;
+
     }
 
     void show_head() {
         cout << "Head: " << head->data << endl;
-
-        Nodee* tmp_node = head->next;
-        tmp_node = tmp_node->prev;
-        cout << "(head)Prev from next: " << tmp_node->data << endl;
+        cout << "(head)Prev from next: " << head->next->prev->data << endl;
     }
 
     void show_tail() {
         cout << "Tail: " << tail->data << endl;
-
-        Nodee* tmp_node = tail->prev;
-        tmp_node = tmp_node->next;
-        cout << "Tail prev: " << tmp_node->data << endl;
+        cout << "Tail prev: " << tail->prev->next->data << endl;
     }
 
     void pop_front() {
